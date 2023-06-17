@@ -8,18 +8,23 @@ public class movePlayer : MonoBehaviour
 
     public float speed = 10.0f;
 
+    public Joystick joystick;
 
-    private void OnMouseDrag() {
+
+    /*private void OnMouseDrag() {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         player.transform.position = Vector2.MoveTowards(player.transform.position, new Vector2(mousePos.x, mousePos.y), (speed * Time.deltaTime));
-    }
+    }*/
 
-    void Update()
+    void FixedUpdate()
     {
-        if (Input.GetMouseButtonDown(0) == true)
+        player.transform.position = Vector2.MoveTowards(player.transform.position, joystick.Direction + new Vector2(player.transform.position.x, player.transform.position.y), speed * Time.deltaTime);
+        
+
+        /*if (Input.GetMouseButtonDown(0) == true)
         {
             OnMouseDrag();
-        }
+        }*/
     }
 }
