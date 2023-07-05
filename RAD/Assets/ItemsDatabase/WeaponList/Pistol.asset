@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   weaponName: pistol
+  damage: 5
   fireRate: 3
   maxRange: 35
   accuracy: 1
@@ -21,3 +22,4 @@ MonoBehaviour:
   weaponSprite: {fileID: 0}
   ammoSprite: {fileID: 21300000, guid: 7f2fa46247297d64c95c46f96ab8ed9d, type: 3}
   ammoType: 0
+  itemId: 10011

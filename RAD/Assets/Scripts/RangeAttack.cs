@@ -30,7 +30,7 @@ public class RangeAttack : MonoBehaviour
         }
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         transform.position = Vector2.MoveTowards(transform.position, targetPos, (projSpeed * Time.deltaTime));
         
         if ((transform.position.x == targetPos.x) && (transform.position.y == targetPos.y)) {

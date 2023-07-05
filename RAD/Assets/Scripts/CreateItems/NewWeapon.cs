@@ -5,6 +5,7 @@ public class NewWeapon : ScriptableObject
 {
     public string weaponName;
 
+    public int damage;
     public float fireRate;
     public float maxRange;
     public float accuracy;
@@ -17,6 +18,8 @@ public class NewWeapon : ScriptableObject
     public Sprite ammoSprite;
 
     public AmmoType ammoType;
+
+    public int itemId;
 }
 
 public enum AmmoType

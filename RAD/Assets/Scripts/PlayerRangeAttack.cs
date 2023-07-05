@@ -5,7 +5,10 @@ using UnityEngine;
 public class PlayerRangeAttack : MonoBehaviour
 {
     public List<NewWeapon> Weapons;
+
+    public Joystick attackJoystick;
     Vector3 Target;
+    Vector3 Direction;
     Vector3 targetPos;
 
     Vector3 startingPos;
@@ -25,13 +28,15 @@ public class PlayerRangeAttack : MonoBehaviour
 
         currSprite.sprite = ammoSprite;
 
-        Target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //Direction = new Vector3(attackJoystick.Direction.x, attackJoystick.Direction.y, 0);
 
-        targetPos.x = Target.x;
-        targetPos.y = Target.y;
+        Target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         startingPos.x = transform.position.x;
         startingPos.y = transform.position.y;
+
+        targetPos.x = Target.x;
+        targetPos.y = Target.y;
 
         targetPos = startingPos + (targetPos - startingPos).normalized * 10000.0f;
 
@@ -42,7 +47,7 @@ public class PlayerRangeAttack : MonoBehaviour
         maxRange = Weapons[PlayerChar.currWeapon].maxRange;
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         transform.position = Vector2.MoveTowards(transform.position, new Vector2(targetPos.x, targetPos.y), (projSpeed * Time.deltaTime));
 
         if((transform.position.x == targetPos.x) && (transform.position.y == targetPos.y)) {

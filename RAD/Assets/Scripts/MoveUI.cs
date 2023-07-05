@@ -15,13 +15,20 @@ public class MoveUI : MonoBehaviour
     {
         while (transform.position != target)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-            yield return new WaitForSeconds(0.03f);
+            //transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+            transform.position = target;
+            
+            yield return new WaitForSeconds(0.02f);
         }
 
         isMoving = false;
 
         StopCoroutine("Move");
+    }
+
+    void Awake()
+    {
+        transform.position = posA;
     }
 
     void Update()

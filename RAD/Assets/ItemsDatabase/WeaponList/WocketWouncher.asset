@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: WocketWouncher
   m_EditorClassIdentifier: 
   weaponName: WocketWouncer
+  damage: 30
   fireRate: 1
   maxRange: 15
   accuracy: 1
   maxCapacity: 10
   description: Only use with Wockets
-  itemSprite: {fileID: 21300000, guid: 86c506b9116c23246a74ec5edf9deb91, type: 3}
-  ammoType: 3
+  weaponSprite: {fileID: 0}
   ammoSprite: {fileID: 21300000, guid: f578e7e851dce92409d16037aa9eaab7, type: 3}
+  ammoType: 3
+  itemId: 0

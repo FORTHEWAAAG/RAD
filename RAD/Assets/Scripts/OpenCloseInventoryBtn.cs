@@ -15,6 +15,6 @@ public class OpenCloseInventoryBtn : MonoBehaviour
             Inventory.isInventoryOpen = false;
         }
 
-        Debug.Log(Inventory.isInventoryOpen);
+        //Debug.Log(Inventory.isInventoryOpen);
     }
 }

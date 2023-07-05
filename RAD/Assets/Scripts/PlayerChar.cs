@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerChar : MonoBehaviour
 {
     public GameObject playerCharacter;
+    public Joystick attackJoystick;
 
     public GameObject AttackSprite;
     public List<NewWeapon> Weapons;
@@ -187,6 +188,27 @@ public class PlayerChar : MonoBehaviour
         {
             stopAttacking = true;
         }
+
+
+        /*if ((Mathf.Abs(attackJoystick.Direction.x) > 0.2f) || (Mathf.Abs(attackJoystick.Direction.y) > 0.2f))
+        {
+            if (isAttacking == false)
+            {
+                isAttacking = true;
+                stopAttacking = false;
+
+                StartCoroutine(Attack());
+            }
+        }
+
+        if ((Mathf.Abs(attackJoystick.Direction.x) < 0.2f) || (Mathf.Abs(attackJoystick.Direction.y) < 0.2f))
+        {
+            if (isAttacking == true)
+            {
+                stopAttacking = true;
+            }
+        }*/
+
 
         if (Input.GetKeyDown(KeyCode.UpArrow) == true)
         {

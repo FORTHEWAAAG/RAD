@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MachinGun
   m_EditorClassIdentifier: 
   weaponName: brrrt
+  damage: 8
   fireRate: 5
   maxRange: 60
   accuracy: 1
@@ -21,3 +22,4 @@ MonoBehaviour:
   weaponSprite: {fileID: 0}
   ammoSprite: {fileID: 21300000, guid: 2ece01ea367650d469fbf75321fe14ec, type: 3}
   ammoType: 1
+  itemId: 0
