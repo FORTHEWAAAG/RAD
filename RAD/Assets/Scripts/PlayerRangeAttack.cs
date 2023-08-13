@@ -5,19 +5,29 @@ using UnityEngine;
 public class PlayerRangeAttack : MonoBehaviour
 {
     public List<NewWeapon> Weapons;
-    public Vector3 Target;
     Vector3 targetPos;
-
     Vector3 startingPos;
-
     public float projSpeed = 5.0f;
-
     public SpriteRenderer currSprite;
     public Sprite weaponSprite;
     public Sprite ammoSprite;
-
-
     private float maxRange;
+
+
+    public float radius = 15.0f;
+    public int layer = 512;
+    Collider2D[] hitColliders;
+    Vector3 closestTarget;
+
+
+    void Awake()
+    {
+        startingPos.x = transform.position.x;
+        startingPos.y = transform.position.y;
+
+        SearchForTargets();
+    }
+
 
     void Start() {
         weaponSprite = Weapons[PlayerChar.currWeapon].weaponSprite;
@@ -25,19 +35,13 @@ public class PlayerRangeAttack : MonoBehaviour
 
         currSprite.sprite = ammoSprite;
 
-        Target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        targetPos.x = Target.x;
-        targetPos.y = Target.y;
-
-        startingPos.x = transform.position.x;
-        startingPos.y = transform.position.y;
+        targetPos.x = closestTarget.x;
+        targetPos.y = closestTarget.y;
 
         targetPos = startingPos + (targetPos - startingPos).normalized * 10000.0f;
 
         float angle = Vector3.SignedAngle(transform.up, targetPos, transform.forward);
         transform.Rotate(0.0f, 0.0f, angle);
-
 
         maxRange = Weapons[PlayerChar.currWeapon].maxRange;
     }
@@ -52,6 +56,41 @@ public class PlayerRangeAttack : MonoBehaviour
         if((startingPos - transform.position).sqrMagnitude > maxRange)
         {
             Destroy(gameObject);
+        }
+    }
+
+
+    public void SearchForTargets()
+    {
+        hitColliders = Physics2D.OverlapCircleAll(startingPos, radius, layer);
+
+        if (hitColliders.Length == 1)
+        {
+            float distance = (startingPos - hitColliders[0].transform.position).sqrMagnitude;
+            closestTarget = hitColliders[0].transform.position;
+
+            Debug.Log(closestTarget);
+        }
+        else if (hitColliders.Length > 1)
+        {
+            float distance = (startingPos - hitColliders[0].transform.position).sqrMagnitude;
+            closestTarget = hitColliders[0].transform.position;
+
+            foreach (Collider2D hitCollider in hitColliders)
+            {
+                //Debug.Log(hitCollider.name + " distance to player: " + (playerPos.position - hitCollider.transform.position).sqrMagnitude);
+
+                float newDistance = (startingPos - hitCollider.transform.position).sqrMagnitude;
+
+                if (newDistance < distance)
+                {
+                    distance = newDistance;
+                    closestTarget = hitCollider.transform.position;
+                }
+            }
+
+            //Debug.Log(closestTarget);
+            //SendMessage(PlayerChar);s
         }
     }
 }

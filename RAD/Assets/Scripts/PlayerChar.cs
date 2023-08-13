@@ -129,7 +129,7 @@ public class PlayerChar : MonoBehaviour
     }
     #endregion
 
-    #region Attack
+    /*#region Attack
     public IEnumerator Attack()
     {
         while (isAttacking == true)
@@ -150,7 +150,7 @@ public class PlayerChar : MonoBehaviour
             }
         }
     }
-    #endregion
+    #endregion*/
 
     private void Update()
     {
@@ -181,7 +181,7 @@ public class PlayerChar : MonoBehaviour
 
         UpdateSliders();
 
-        if ((Input.GetMouseButton(1) == true) && (isAttacking == false))
+        /*if ((Input.GetMouseButton(1) == true) && (isAttacking == false))
         {
             isAttacking = true;
             stopAttacking = false;
@@ -192,7 +192,7 @@ public class PlayerChar : MonoBehaviour
         if ((Input.GetMouseButton(1) == false) && (isAttacking == true))
         {
             stopAttacking = true;
-        }
+        }*/
 
         if (Input.GetKeyDown(KeyCode.UpArrow) == true)
         {

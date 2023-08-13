@@ -2,63 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class AttackBtn : MonoBehaviour
 {
     
     public Transform playerPos;
-    public float radius = 15.0f;
-
-    public int layer = 0;
-
-    Collider2D[] hitColliders;
-    Vector3 closestTarget;
-
 
     bool isAttacking = false;
     bool stopAttacking = true;
     public List<NewWeapon> Weapons;
     public GameObject AttackSprite;
 
-    public PlayerRangeAttack projectile;
 
-
-    public void SearchForTargets()
+    public IEnumerator Attack()
     {
-        hitColliders = Physics2D.OverlapCircleAll(playerPos.position, radius, layer);
-
-        if (hitColliders.Length == 1)
+        while (isAttacking == true)
         {
-            float distance = (playerPos.position - hitColliders[0].transform.position).sqrMagnitude;
-            closestTarget = hitColliders[0].transform.position;
-
-            Debug.Log(closestTarget);
-        }
-        else if (hitColliders.Length > 1)
-        {
-            float distance = (playerPos.position - hitColliders[0].transform.position).sqrMagnitude;
-            closestTarget = hitColliders[0].transform.position;
-
-            foreach (Collider2D hitCollider in hitColliders)
+            if (stopAttacking == false)
             {
-                //Debug.Log(hitCollider.name + " distance to player: " + (playerPos.position - hitCollider.transform.position).sqrMagnitude);
+                float timeBtwShots = 1.0f / Weapons[PlayerChar.currWeapon].fireRate;
 
-                float newDistance = (playerPos.position - hitCollider.transform.position).sqrMagnitude;
+                Instantiate(AttackSprite, playerPos.position, Quaternion.identity);
 
-                if (newDistance < distance)
-                {
-                    distance = newDistance;
-                    closestTarget = hitCollider.transform.position;
-                }
+                yield return new WaitForSeconds(timeBtwShots);
             }
+            else
+            {
+                isAttacking = false;
 
-            //Debug.Log(closestTarget);
-            //SendMessage(PlayerChar);
+                StopCoroutine(Attack());
+            }
         }
     }
 
-
-    private void OnDrawGizmos()
+    public void Update()
     {
-        Gizmos.DrawWireSphere(playerPos.position, radius);
+        if (stopAttacking == false || isAttacking == false)
+        {
+            isAttacking = true;
+            StartCoroutine(Attack());
+        }
+    }
+
+    public void StartAttack()
+    {
+        stopAttacking = false;
+    }
+
+
+    public void OnMouseUpAsButton()
+    {
+        stopAttacking = true;
     }
 }

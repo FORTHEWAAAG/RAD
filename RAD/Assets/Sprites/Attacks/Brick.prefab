@@ -76,8 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
-    type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0.56976867, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -156,3 +155,6 @@ MonoBehaviour:
   currSprite: {fileID: 3702068993189567790}
   weaponSprite: {fileID: 0}
   ammoSprite: {fileID: 0}
+  playerPos: {fileID: 0}
+  radius: 15
+  layer: 512
