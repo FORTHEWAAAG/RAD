@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerRangeAttack : MonoBehaviour
 {
     public List<NewWeapon> Weapons;
-    Vector3 Target;
+    public Vector3 Target;
     Vector3 targetPos;
 
     Vector3 startingPos;

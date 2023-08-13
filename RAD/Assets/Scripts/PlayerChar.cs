@@ -7,6 +7,10 @@ public class PlayerChar : MonoBehaviour
 {
     public GameObject playerCharacter;
 
+    public Joystick joystick;
+    public float speed = 10.0f;
+
+
     public GameObject AttackSprite;
     public List<NewWeapon> Weapons;
     public static int currWeapon = 1;
@@ -39,7 +43,8 @@ public class PlayerChar : MonoBehaviour
     public int currentLoad = 0;
     #endregion
 
-    private void Start() {
+    private void Start()
+    {
 
         playerCurrentHealth = playerMaxHealth;
 
@@ -78,7 +83,7 @@ public class PlayerChar : MonoBehaviour
             playerMaxHealth = 150;
         }
 
-        if (playerCurrentHealth + (num -15) <= playerMaxHealth)
+        if (playerCurrentHealth + (num - 15) <= playerMaxHealth)
         {
             playerCurrentHealth += (num - 15);
         }
@@ -102,7 +107,7 @@ public class PlayerChar : MonoBehaviour
     #endregion
 
     #region RadiationMech
-    IEnumerator RadiationDamageOverTime ()
+    IEnumerator RadiationDamageOverTime()
     {
         while (isRadDoTActive == true)
         {
@@ -125,7 +130,7 @@ public class PlayerChar : MonoBehaviour
     #endregion
 
     #region Attack
-    IEnumerator Attack()
+    public IEnumerator Attack()
     {
         while (isAttacking == true)
         {
@@ -147,7 +152,8 @@ public class PlayerChar : MonoBehaviour
     }
     #endregion
 
-    private void Update() {
+    private void Update()
+    {
 
         UpdateSliders();
 
@@ -182,26 +188,31 @@ public class PlayerChar : MonoBehaviour
 
             StartCoroutine(Attack());
         }
-        
-        if((Input.GetMouseButton(1) == false) && (isAttacking == true))
+
+        if ((Input.GetMouseButton(1) == false) && (isAttacking == true))
         {
             stopAttacking = true;
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow) == true)
         {
-            if(PlayerChar.currWeapon <= 2)
+            if (PlayerChar.currWeapon <= 2)
             {
                 PlayerChar.currWeapon++;
-            }            
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow) == true)
         {
-            if(PlayerChar.currWeapon >= 2)
+            if (PlayerChar.currWeapon >= 2)
             {
                 PlayerChar.currWeapon--;
-            }            
+            }
         }
+    }
+
+    void FixedUpdate()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, joystick.Direction + new Vector2(transform.position.x, transform.position.y), speed * Time.deltaTime);
     }
 }
