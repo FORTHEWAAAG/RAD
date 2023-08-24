@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
-public class AttackBtn : MonoBehaviour
+public class AttackBtn : Button
 {
     
     public Transform playerPos;
@@ -12,6 +15,10 @@ public class AttackBtn : MonoBehaviour
     bool stopAttacking = true;
     public List<NewWeapon> Weapons;
     public GameObject AttackSprite;
+
+    Collider2D[] hitColliders;
+    public float radius = 15.0f;
+    public int layer = 512;
 
 
     public IEnumerator Attack()
@@ -35,22 +42,29 @@ public class AttackBtn : MonoBehaviour
         }
     }
 
+
     public void Update()
     {
-        if (stopAttacking == false || isAttacking == false)
+        if (stopAttacking == false && isAttacking == false)
         {
             isAttacking = true;
             StartCoroutine(Attack());
         }
     }
 
-    public void StartAttack()
-    {
-        stopAttacking = false;
+    public override void OnPointerDown(PointerEventData eventData)
+    {     
+        radius = (float)Math.Sqrt(Weapons[PlayerChar.currWeapon].maxRange);
+
+        hitColliders = Physics2D.OverlapCircleAll(playerPos.position, radius, layer);
+
+        if (hitColliders.Length != 0)
+        {
+            stopAttacking = false;
+        }
     }
 
-
-    public void OnMouseUpAsButton()
+    public override void OnPointerUp(PointerEventData eventData)
     {
         stopAttacking = true;
     }

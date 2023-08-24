@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +31,8 @@ public class PlayerRangeAttack : MonoBehaviour
 
 
     void Start() {
+        Array.Clear(hitColliders, 0, hitColliders.Length);
+
         weaponSprite = Weapons[PlayerChar.currWeapon].weaponSprite;
         ammoSprite = Weapons[PlayerChar.currWeapon].ammoSprite;
 
@@ -44,6 +47,8 @@ public class PlayerRangeAttack : MonoBehaviour
         transform.Rotate(0.0f, 0.0f, angle);
 
         maxRange = Weapons[PlayerChar.currWeapon].maxRange;
+
+        //Debug.Log("distance to player: " + (startingPos - closestTarget).magnitude);
     }
 
     private void Update() {
@@ -62,6 +67,8 @@ public class PlayerRangeAttack : MonoBehaviour
 
     public void SearchForTargets()
     {
+        radius = (float)Math.Sqrt(Weapons[PlayerChar.currWeapon].maxRange);
+
         hitColliders = Physics2D.OverlapCircleAll(startingPos, radius, layer);
 
         if (hitColliders.Length == 1)
@@ -69,7 +76,7 @@ public class PlayerRangeAttack : MonoBehaviour
             float distance = (startingPos - hitColliders[0].transform.position).sqrMagnitude;
             closestTarget = hitColliders[0].transform.position;
 
-            Debug.Log(closestTarget);
+            //Debug.Log(closestTarget);
         }
         else if (hitColliders.Length > 1)
         {
@@ -78,7 +85,7 @@ public class PlayerRangeAttack : MonoBehaviour
 
             foreach (Collider2D hitCollider in hitColliders)
             {
-                //Debug.Log(hitCollider.name + " distance to player: " + (playerPos.position - hitCollider.transform.position).sqrMagnitude);
+                Debug.Log(hitCollider.name + " distance to player: " + (startingPos - hitCollider.transform.position).magnitude);
 
                 float newDistance = (startingPos - hitCollider.transform.position).sqrMagnitude;
 

@@ -744,7 +744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88d1e814039b9974398b9e04bc8e1451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCharacter: {fileID: 638957213}
+  playerCharacter: {fileID: 0}
   joystick: {fileID: 1170544589}
   speed: 6
   AttackSprite: {fileID: 6566612736884844680, guid: ee9b8766d97e3d943b83c67e31695500, type: 3}
@@ -5409,11 +5409,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPos: {fileID: 638957217}
-  radius: 10
-  layer: 512
-  Weapons: []
+  Weapons:
+  - {fileID: 11400000, guid: 64f30a351285f024ea495f86aa02dc25, type: 2}
+  - {fileID: 11400000, guid: dd171aceb08576747904cf0bddd1b186, type: 2}
+  - {fileID: 11400000, guid: bff48b0c1ef3b85409c3fe77e29b6328, type: 2}
+  - {fileID: 11400000, guid: e3f4dd34cf5492b4694ae9754968ab10, type: 2}
   AttackSprite: {fileID: 6566612736884844680, guid: ee9b8766d97e3d943b83c67e31695500, type: 3}
-  projectile: {fileID: 6756549647865745907, guid: ee9b8766d97e3d943b83c67e31695500, type: 3}
 --- !u!114 &1702295725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5460,7 +5461,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1702295724}
         m_TargetAssemblyTypeName: AttackBtn, Assembly-CSharp
-        m_MethodName: SearchForTargets
+        m_MethodName: StartAttack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
