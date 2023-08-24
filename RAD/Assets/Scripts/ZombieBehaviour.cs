@@ -48,9 +48,13 @@ public class ZombieBehaviour : MonoBehaviour
 
 
     private bool IsAggred() {
-        if ((transform.position - Target.transform.position).sqrMagnitude <= (aggrRange * aggrRange))
+        if (isAggred == false)
         {
-            isAggred = true;
+            if ((transform.position - Target.transform.position).sqrMagnitude <= (aggrRange * aggrRange))
+            {
+                isAggred = true;
+                BroadcastMessage("Yell");
+            }
         }
         else
         {

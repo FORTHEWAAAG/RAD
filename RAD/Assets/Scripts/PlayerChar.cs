@@ -1,11 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerChar : MonoBehaviour
 {
     public GameObject playerCharacter;
+
+    public Joystick joystick;
+    public float speed = 10.0f;
+
 
     public GameObject AttackSprite;
     public List<NewWeapon> Weapons;
@@ -39,7 +45,8 @@ public class PlayerChar : MonoBehaviour
     public int currentLoad = 0;
     #endregion
 
-    private void Start() {
+    private void Start()
+    {
 
         playerCurrentHealth = playerMaxHealth;
 
@@ -78,7 +85,7 @@ public class PlayerChar : MonoBehaviour
             playerMaxHealth = 150;
         }
 
-        if (playerCurrentHealth + (num -15) <= playerMaxHealth)
+        if (playerCurrentHealth + (num - 15) <= playerMaxHealth)
         {
             playerCurrentHealth += (num - 15);
         }
@@ -102,7 +109,7 @@ public class PlayerChar : MonoBehaviour
     #endregion
 
     #region RadiationMech
-    IEnumerator RadiationDamageOverTime ()
+    IEnumerator RadiationDamageOverTime()
     {
         while (isRadDoTActive == true)
         {
@@ -124,30 +131,9 @@ public class PlayerChar : MonoBehaviour
     }
     #endregion
 
-    #region Attack
-    IEnumerator Attack()
+
+    private void Update()
     {
-        while (isAttacking == true)
-        {
-            if (stopAttacking == false)
-            {
-                float timeBtwShots = 1.0f / Weapons[currWeapon].fireRate;
-
-                Instantiate(AttackSprite, transform.position, Quaternion.identity);
-
-                yield return new WaitForSeconds(timeBtwShots);
-            }
-            else
-            {
-                isAttacking = false;
-
-                StopCoroutine(Attack());
-            }
-        }
-    }
-    #endregion
-
-    private void Update() {
 
         UpdateSliders();
 
@@ -175,33 +161,31 @@ public class PlayerChar : MonoBehaviour
 
         UpdateSliders();
 
-        if ((Input.GetMouseButton(1) == true) && (isAttacking == false))
-        {
-            isAttacking = true;
-            stopAttacking = false;
-
-            StartCoroutine(Attack());
-        }
-        
-        if((Input.GetMouseButton(1) == false) && (isAttacking == true))
-        {
-            stopAttacking = true;
-        }
 
         if (Input.GetKeyDown(KeyCode.UpArrow) == true)
         {
-            if(PlayerChar.currWeapon <= 2)
+            if (PlayerChar.currWeapon <= 2)
             {
                 PlayerChar.currWeapon++;
-            }            
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow) == true)
         {
-            if(PlayerChar.currWeapon >= 2)
+            if (PlayerChar.currWeapon >= 2)
             {
                 PlayerChar.currWeapon--;
-            }            
+            }
         }
+    }
+
+    void FixedUpdate()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, joystick.Direction + new Vector2(transform.position.x, transform.position.y), speed * Time.deltaTime);
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, (float)Math.Sqrt(Weapons[currWeapon].maxRange));
     }
 }
