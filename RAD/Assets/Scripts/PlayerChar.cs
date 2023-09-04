@@ -215,7 +215,7 @@ public class PlayerChar : MonoBehaviour
             if(PlayerChar.currWeapon <= 2)
             {
                 PlayerChar.currWeapon++;
-            }            
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow) == true)
